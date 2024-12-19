@@ -1,0 +1,14 @@
+import 'package:dio/dio.dart';
+import 'package:retrofit/error_logger.dart';
+import 'package:retrofit/http.dart';
+import 'package:tasky/core/networking/constants.dart';
+import 'package:tasky/features/login/data/models/login_request.dart';
+import 'package:tasky/features/login/data/models/login_response.dart';
+part 'ServicesApi.g.dart';
+
+@RestApi(baseUrl: ApiConstants.baseUrl)
+abstract class ServicesApi {
+  factory ServicesApi(Dio dio, {String baseUrl}) = _ServicesApi;
+  @POST(ApiConstants.login)
+  Future<LoginResponse> login(@Body() LoginRequest loginRequestBody);
+}
