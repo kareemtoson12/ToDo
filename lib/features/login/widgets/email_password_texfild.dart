@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:tasky/core/styles/color_manger.dart';
+
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/login/widgets/signin_button.dart';
 
@@ -29,7 +29,7 @@ class _EmailPasswordTextFieldState extends State<EmailPasswordTextField> {
           IntlPhoneField(
             controller: _phoneController,
             decoration: InputDecoration(
-              labelText: 'Phone Number',
+              labelText: '   123 456_7890 ',
               labelStyle: CustomstextStyels.font20black700Wight
                   .copyWith(fontWeight: FontWeight.w300),
               border: OutlineInputBorder(
@@ -94,33 +94,11 @@ class _EmailPasswordTextFieldState extends State<EmailPasswordTextField> {
 
           // Login Button
           SigninButton(
-            emailController: _phoneController,
+            phoneontroller: _phoneController,
             passwordController: _passwordController,
           ),
 
           SizedBox(height: 10.h),
-
-          // SignUp
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Didn’t have any account?',
-                style: CustomstextStyels.font20black700Wight,
-              ),
-              TextButton(
-                child: Text(
-                  'Sign Up here',
-                  style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: ColorsManger.primaryColor, // Text color
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                ),
-                onPressed: () {},
-              ),
-            ],
-          )
         ],
       ),
     );

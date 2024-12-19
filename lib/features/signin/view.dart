@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/core/widgets/art_widget.dart';
+import 'package:tasky/features/signin/widgets/sign_up_button.dart';
+import 'package:tasky/features/signin/widgets/user_form.dart';
 
-import 'widgets/email_password_texfild.dart';
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignIn extends StatelessWidget {
+  const SignIn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,8 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                artWidget(400),
-                SizedBox(height: 20.h),
+                artWidget(280),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -31,9 +32,11 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 20.h),
-                EmailPasswordTextField(),
-                // SignUp
+                SizedBox(height: 10.h),
+                // SignIn screen
+                UserForm(),
+
+                //sign up
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -51,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                             fontSize: 16),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, Routes.signUp);
+                        Navigator.pushReplacementNamed(context, Routes.login);
                       },
                     ),
                   ],

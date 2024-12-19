@@ -6,12 +6,12 @@ import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
 
 class SigninButton extends StatelessWidget {
-  final TextEditingController emailController;
+  final TextEditingController phoneontroller;
   final TextEditingController passwordController;
 
   const SigninButton({
     super.key,
-    required this.emailController,
+    required this.phoneontroller,
     required this.passwordController,
   });
 
@@ -41,7 +41,7 @@ class SigninButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: GestureDetector(
           onTap: () {
-            String phoneNumber = emailController.text.trim();
+            String phoneNumber = phoneontroller.text.trim();
             final password = passwordController.text.trim();
 
             // Ensure phone number has +20 prefix
