@@ -51,7 +51,7 @@ class SignUpButton extends StatelessWidget {
             nameController.text,
             passwordController.text,
             nameController.text, // Assuming displayName is the same as name
-            'senior',
+            experienceLevelController.text,
             addressController.text,
             int.tryParse(yearsOfExperienceController.text) ?? 0,
           );

@@ -18,15 +18,16 @@ class _UserFormState extends State<UserForm> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _yearsofexpernce = TextEditingController();
+  final TextEditingController _seniority = TextEditingController();
 
   bool _obscureText = true; // State for password visibility
   String? _selectedExperience;
 
   final List<String> _seniorityLevels = [
-    'Junior',
-    'Mid-Level',
-    'Senior',
-    'Lead',
+    ' fresh',
+    'junior',
+    'midLevel',
+    'senior'
   ];
 
   @override
@@ -106,9 +107,10 @@ class _UserFormState extends State<UserForm> {
               ),
               SizedBox(height: 15.h),
               // Years of Experience Dropdown
+
               // Seniority Level Dropdown
               DropdownButtonFormField<String>(
-                value: _selectedExperience,
+                value: null, // No initial value
                 items: _seniorityLevels
                     .map((level) => DropdownMenuItem<String>(
                           value: level,
@@ -117,11 +119,11 @@ class _UserFormState extends State<UserForm> {
                     .toList(),
                 onChanged: (value) {
                   setState(() {
-                    _selectedExperience = value;
+                    _seniority.text = value!; // Update controller
                   });
                 },
                 decoration: InputDecoration(
-                  labelText: 'Choose experience Level',
+                  labelText: 'Choose experience level',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
@@ -133,7 +135,6 @@ class _UserFormState extends State<UserForm> {
                   return null;
                 },
               ),
-
               SizedBox(height: 15.h),
 
               // Address Field
@@ -194,7 +195,7 @@ class _UserFormState extends State<UserForm> {
                 nameController: _nameController,
                 passwordController: _passwordController,
                 yearsOfExperienceController: _yearsofexpernce,
-                experienceLevelController: _addressController,
+                experienceLevelController: _seniority,
                 addressController: _addressController,
               ),
             ],

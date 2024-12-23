@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+
 import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/core/widgets/art_widget.dart';
-import 'package:tasky/features/signin/widgets/sign_up_button.dart';
+
 import 'package:tasky/features/signin/widgets/user_form.dart';
 
 class SignIn extends StatelessWidget {
