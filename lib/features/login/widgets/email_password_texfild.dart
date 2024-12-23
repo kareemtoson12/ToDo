@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import 'package:tasky/core/styles/text_styles.dart';
@@ -38,9 +38,8 @@ class _EmailPasswordTextFieldState extends State<EmailPasswordTextField> {
             ),
             initialCountryCode: 'EG', // Default country code
             onChanged: (phone) {
-              // Automatically format with +02
-              _phoneController.text = '+20${phone.number}';
-              print('Complete phone number: ${_phoneController.text}');
+              // Just print the complete phone number, no need to modify the controller text
+              print('Complete phone number: ${phone.completeNumber}');
             },
             validator: (phone) {
               if (phone == null || phone.number.isEmpty) {

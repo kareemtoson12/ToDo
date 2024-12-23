@@ -21,10 +21,9 @@ class _UserFormState extends State<UserForm> {
   final TextEditingController _seniority = TextEditingController();
 
   bool _obscureText = true; // State for password visibility
-  String? _selectedExperience;
 
   final List<String> _seniorityLevels = [
-    ' fresh',
+    'fresh',
     'junior',
     'midLevel',
     'senior'
@@ -61,7 +60,7 @@ class _UserFormState extends State<UserForm> {
               IntlPhoneField(
                 controller: _phoneController,
                 decoration: InputDecoration(
-                  labelText: '   123 456_7890 ',
+                  labelText: '123 456 7890',
                   labelStyle: CustomstextStyels.font20black700Wight
                       .copyWith(fontWeight: FontWeight.w300),
                   border: OutlineInputBorder(
@@ -89,7 +88,7 @@ class _UserFormState extends State<UserForm> {
                 },
               ),
 
-              //experince
+              // Experience Field
               TextFormField(
                 controller: _yearsofexpernce,
                 decoration: InputDecoration(
@@ -100,13 +99,15 @@ class _UserFormState extends State<UserForm> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your address';
+                    return 'Please enter your years of experience';
+                  } else if (int.tryParse(value) == null ||
+                      int.parse(value) < 0) {
+                    return 'Please enter a valid number of years';
                   }
                   return null;
                 },
               ),
               SizedBox(height: 15.h),
-              // Years of Experience Dropdown
 
               // Seniority Level Dropdown
               DropdownButtonFormField<String>(
@@ -175,7 +176,7 @@ class _UserFormState extends State<UserForm> {
                       child: SvgPicture.asset(
                         _obscureText
                             ? 'assets/images/svg/eye.svg'
-                            : 'assets/images/svg/eye.svg',
+                            : 'assets/images/svg/eye_off.svg',
                         color: Colors.grey,
                       ),
                     ),
@@ -184,14 +185,17 @@ class _UserFormState extends State<UserForm> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a password';
+                  } else if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
                   }
                   return null;
                 },
               ),
               SizedBox(height: 15.h),
 
-              //signUp Button
+              // Sign-Up Button
               SignUpButton(
+                formKey: _formKey,
                 nameController: _nameController,
                 passwordController: _passwordController,
                 yearsOfExperienceController: _yearsofexpernce,

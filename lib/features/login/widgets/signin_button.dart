@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
+import 'package:tasky/features/login/data/models/login_request.dart';
 
 class SigninButton extends StatelessWidget {
   final TextEditingController phoneontroller;
@@ -23,7 +24,7 @@ class SigninButton extends StatelessWidget {
           // Display error message in a SnackBar
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Please cheack both phone number and password"),
+              content: Text(state.error),
               backgroundColor: Colors.red,
             ),
           );
@@ -51,7 +52,11 @@ class SigninButton extends StatelessWidget {
 
             if (phoneNumber.isNotEmpty && password.isNotEmpty) {
               // Trigger login via Bloc
-              BlocProvider.of<LoginCubit>(context).login(phoneNumber, password);
+
+              final loginRequest = LoginRequest(phoneNumber, password);
+
+              ;
+              BlocProvider.of<LoginCubit>(context).login(loginRequest);
             } else {
               // Handle empty fields
               ScaffoldMessenger.of(context).showSnackBar(

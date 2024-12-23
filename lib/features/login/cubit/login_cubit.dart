@@ -1,33 +1,36 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:tasky/core/networking/ServicesApi.dart';
+import 'package:tasky/core/networking/error_handling.dart';
 import 'package:tasky/features/login/data/models/login_request.dart';
+import 'package:tasky/features/login/data/models/login_response.dart';
+import 'package:tasky/features/login/data/repo/login_repo.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  final ServicesApi servicesApi;
+  final LoginRepo servicesApi;
 
   LoginCubit({required this.servicesApi}) : super(LoginInitial());
 
-  Future<void> login(String phoneNumber, String password) async {
+  Future<void> login(LoginRequest loginRequest) async {
     emit(LoginLoading());
 
     try {
-      final loginRequest = LoginRequest(phoneNumber, password);
-      final response = await servicesApi.login(loginRequest);
+      final result = await servicesApi.login(loginRequest);
+      result.when(
+        success: (response) => emit(LoginSucess(response)),
+        failure: (errorHandler) {
+          String errorMessage =
+              errorHandler.apiErrorModel.message ?? "Unknown Error";
+          // Check for specific errors and update message
 
-      if (response != null) {
-        emit(LoginSucess(
-          response.id,
-          response.accessToken,
-          response.refreshToken,
-        ));
-      } else {
-        emit(LoginError(ErrorHandler('Invalid response from server')));
-      }
+          emit(LoginError(errorMessage));
+        },
+      );
     } catch (error) {
-      emit(LoginError(ErrorHandler(error.toString())));
+      emit(LoginError(
+          "An unexpected error occurred. Please try again.${error}"));
     }
   }
 }

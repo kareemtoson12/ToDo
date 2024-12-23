@@ -24,5 +24,5 @@ Future<void> setUpGetIt() async {
   getit.registerLazySingleton<SigninRepo>(
       () => SigninRepo(servicesInstance: getit()));
 
-  getit.registerFactory<SignInCubit>(() => SignInCubit(servicesApi: getit()));
+  getit.registerFactory<SignInCubit>(() => SignInCubit(signinRepo: getit()));
 }

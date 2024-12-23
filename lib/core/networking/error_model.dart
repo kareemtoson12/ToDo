@@ -1,13 +1,13 @@
 class ApiErrorModel {
   final String? message;
-  final int code;
+  final int statusCode;
 
-  ApiErrorModel({required this.code, this.message});
+  ApiErrorModel({required this.statusCode, this.message});
 
   // Factory constructor to create an instance from JSON
   factory ApiErrorModel.fromJson(Map<String, dynamic> json) {
     return ApiErrorModel(
-      code: json['code'] as int,
+      statusCode: json['statusCode'] as int,
       message: json['message'] as String?,
     );
   }
@@ -15,7 +15,7 @@ class ApiErrorModel {
   // Method to convert an instance to JSON
   Map<String, dynamic> toJson() {
     return {
-      'code': code,
+      'statusCode': statusCode,
       'message': message,
     };
   }

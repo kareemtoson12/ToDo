@@ -5,10 +5,11 @@ class ApiConstants {
 }
 
 class ApiErrors {
-  static const String badRequestError = "badRequestError";
+  static const String badRequestError = "رقم الهاتف مستخدم بالفعل";
   static const String noContent = "noContent";
   static const String forbiddenError = "forbiddenError";
-  static const String unauthorizedError = "unauthorizedError";
+  static const String unauthorizedError =
+      "يوجد خطأ في رقم الهاتف أو كلمة المرور";
   static const String notFoundError = "notFoundError";
   static const String conflictError = "conflictError";
   static const String internalServerError = "internalServerError";

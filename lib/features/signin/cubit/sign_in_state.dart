@@ -1,17 +1,32 @@
-part of 'sign_in_cubit.dart';
+import 'package:equatable/equatable.dart';
+import 'package:tasky/core/networking/api_result.dart';
+import 'package:tasky/features/signin/data/models/signIn_response.dart';
 
-@immutable
-sealed class SignInState {}
+abstract class SignInState extends Equatable {
+  const SignInState();
 
-final class SignInInitial extends SignInState {}
-
-final class SignInLoading extends SignInState {}
-
-final class SignInSuccess extends SignInState {
-  final SigninResponse response;
-
-  SignInSuccess(this.response);
+  @override
+  List<Object?> get props => [];
 }
 
-// state for failure
-final class SignInFailure extends SignInState {}
+class SignInInitial extends SignInState {}
+
+class SignInLoading extends SignInState {}
+
+class SignInSuccess extends SignInState {
+  final SigninResponse response;
+
+  const SignInSuccess(this.response);
+
+  @override
+  List<Object?> get props => [response];
+}
+
+class SignInFailure extends SignInState {
+  final String error;
+
+  const SignInFailure(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}

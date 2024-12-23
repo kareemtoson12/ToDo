@@ -4,8 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/signin/cubit/sign_in_cubit.dart';
+import 'package:tasky/features/signin/cubit/sign_in_state.dart';
+import 'package:tasky/features/signin/data/models/signIn_request.dart';
 
 class SignUpButton extends StatelessWidget {
+  final GlobalKey<FormState> formKey;
   final TextEditingController nameController;
   final TextEditingController passwordController;
   final TextEditingController yearsOfExperienceController;
@@ -14,6 +17,7 @@ class SignUpButton extends StatelessWidget {
 
   const SignUpButton({
     super.key,
+    required this.formKey,
     required this.nameController,
     required this.passwordController,
     required this.yearsOfExperienceController,
@@ -23,60 +27,79 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignInCubit, SignInState>(
+    return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state is SignInLoading) {
           // Show a loading indicator
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Signing in...')),
+            const SnackBar(content: Text('Signing up...')),
           );
         } else if (state is SignInSuccess) {
-          // Handle success, navigate to another page
+          // Show success message and navigate
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Welcome, ${state.response.displayName}!')),
+            SnackBar(
+              content: Text(
+                'Welcome, ${state.response.displayName}!',
+              ),
+              backgroundColor: Colors.green,
+            ),
           );
+          // Navigate to another page, if needed
         } else if (state is SignInFailure) {
           // Show error message
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('error')),
+            SnackBar(
+              content: Text('Error: ${state.error}'),
+              backgroundColor: Colors.red,
+            ),
           );
         }
       },
-      child: GestureDetector(
-        onTap: () {
-          // Trigger the signIn function in SignInCubit
-          final signInCubit = context.read<SignInCubit>();
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            if (formKey.currentState!.validate()) {
+              final signInCubit = context.read<SignInCubit>();
 
-          signInCubit.signIn(
-            nameController.text,
-            passwordController.text,
-            nameController.text, // Assuming displayName is the same as name
-            experienceLevelController.text,
-            addressController.text,
-            int.tryParse(yearsOfExperienceController.text) ?? 0,
-          );
-        },
-        child: Container(
-          width: double.infinity,
-          height: 50.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: ColorsManger.primaryColor,
+              final signinRequest = SigninRequest(
+                phone: nameController.text,
+                password: passwordController.text,
+                displayName: nameController.text,
+                experienceYears:
+                    int.tryParse(yearsOfExperienceController.text) ?? 0,
+                address: addressController.text,
+                level: experienceLevelController.text,
+              );
+
+              signInCubit.signIn(signinRequest);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content:
+                        Text('Please fill all required fields correctly.')),
+              );
+            }
+          },
+          child: Container(
+            width: double.infinity,
+            height: 50.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: ColorsManger.primaryColor,
+            ),
+            child: Center(
+              child: state is SignInLoading
+                  ? CircularProgressIndicator(
+                      color: Colors.white,
+                    )
+                  : Text(
+                      'Sign Up',
+                      style: CustomstextStyels.font15White700Wight,
+                    ),
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Sign Up',
-                style: CustomstextStyels.font15White700Wight,
-              ),
-              SizedBox(
-                width: 15.w,
-              ),
-            ],
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

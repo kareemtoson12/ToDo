@@ -14,14 +14,11 @@ final class LoginInitial extends LoginState {}
 final class LoginLoading extends LoginState {}
 
 final class LoginSucess extends LoginState {
-  final String _id;
-  final String access_token;
-  final String refresh_token;
-
-  LoginSucess(this._id, this.access_token, this.refresh_token);
+  LoginResponse loginResponse;
+  LoginSucess(this.loginResponse);
 }
 
 final class LoginError extends LoginState {
-  final ErrorHandler errorHandler;
-  LoginError(this.errorHandler);
+  final String error;
+  LoginError(this.error);
 }

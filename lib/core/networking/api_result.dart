@@ -1,12 +1,23 @@
 import 'package:tasky/core/networking/error_handling.dart';
 
-///  API results with a generic type.
 abstract class ApiResult<T> {
   const ApiResult();
 
   factory ApiResult.success(T data) = Success<T>;
 
   factory ApiResult.failure(ErrorHandler errorHandler) = Failure<T>;
+
+  R when<R>({
+    required R Function(T data) success,
+    required R Function(ErrorHandler errorHandler) failure,
+  }) {
+    if (this is Success<T>) {
+      return success((this as Success<T>).data);
+    } else if (this is Failure<T>) {
+      return failure((this as Failure<T>).errorHandler);
+    }
+    throw Exception('Unsupported type');
+  }
 }
 
 /// Success case containing data.
