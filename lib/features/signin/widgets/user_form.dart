@@ -17,6 +17,7 @@ class _UserFormState extends State<UserForm> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _yearsofexpernce = TextEditingController();
 
   bool _obscureText = true; // State for password visibility
   String? _selectedExperience;
@@ -68,21 +69,28 @@ class _UserFormState extends State<UserForm> {
                 ),
                 initialCountryCode: 'EG', // Default country code
                 onChanged: (phone) {
-                  // Automatically format with +02
-                  _phoneController.text = '+20${phone.number}';
-                  print('Complete phone number: ${_phoneController.text}');
+                  // Log the phone number (for debugging if needed)
+                  print('Complete phone number: ${phone.completeNumber}');
                 },
-                validator: (phone) {
-                  if (phone == null || phone.completeNumber.isEmpty) {
-                    return 'Please enter your phone number';
+                onCountryChanged: (country) {
+                  // Log the country change (for debugging if needed)
+                  print('Country changed to: ${country.name}');
+                },
+                validator: (value) {
+                  if (value == null || value.number.isEmpty) {
+                    return 'Please enter a valid phone number';
+                  } else if (!value.completeNumber.startsWith('+20')) {
+                    return 'Phone number must start with +20';
+                  } else if (value.number.length != 9) {
+                    return 'Phone number must be 9 digits';
                   }
-                  return null;
+                  return null; // Input is valid
                 },
               ),
 
               //experince
               TextFormField(
-                controller: _addressController,
+                controller: _yearsofexpernce,
                 decoration: InputDecoration(
                   labelText: 'Years of experience...',
                   border: OutlineInputBorder(
@@ -183,11 +191,11 @@ class _UserFormState extends State<UserForm> {
 
               //signUp Button
               SignUpButton(
-                nameController: TextEditingController(),
-                passwordController: TextEditingController(),
-                yearsOfexperinceController: TextEditingController(),
-                expernceLevelController: TextEditingController(),
-                addressController: TextEditingController(),
+                nameController: _nameController,
+                passwordController: _passwordController,
+                yearsOfExperienceController: _yearsofexpernce,
+                experienceLevelController: _addressController,
+                addressController: _addressController,
               ),
             ],
           ),

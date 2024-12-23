@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:tasky/core/routing/app_routes.dart';
-import 'package:tasky/core/routing/routes.dart';
+import 'package:tasky/core/routing/routing.dart';
 
 class Tasky extends StatelessWidget {
   final AppRoutes appRouter;
@@ -19,7 +19,7 @@ class Tasky extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: appRouter.generateRoute,
-        initialRoute: Routes.splash,
+        initialRoute: Routes.signUp,
         title: 'tasky',
       ),
     );

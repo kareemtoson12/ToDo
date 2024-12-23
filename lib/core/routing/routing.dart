@@ -5,6 +5,7 @@ import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
 import 'package:tasky/features/login/view.dart';
 import 'package:tasky/features/onboarding/view.dart';
+import 'package:tasky/features/signin/cubit/sign_in_cubit.dart';
 import 'package:tasky/features/signin/view.dart';
 import 'package:tasky/features/splash/view.dart';
 
@@ -16,7 +17,9 @@ class AppRoutes {
       case Routes.onboarding:
         return MaterialPageRoute(builder: (context) => const Onboarding());
       case Routes.signUp:
-        return MaterialPageRoute(builder: (context) => const SignIn());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                create: (context) => getit<SignInCubit>(), child: SignIn()));
       case Routes.login:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(

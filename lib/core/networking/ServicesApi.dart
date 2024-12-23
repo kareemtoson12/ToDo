@@ -4,11 +4,23 @@ import 'package:retrofit/http.dart';
 import 'package:tasky/core/networking/constants.dart';
 import 'package:tasky/features/login/data/models/login_request.dart';
 import 'package:tasky/features/login/data/models/login_response.dart';
+import 'package:tasky/features/signin/data/models/signIn_request.dart';
+import 'package:tasky/features/signin/data/models/signIn_response.dart';
+
 part 'ServicesApi.g.dart';
 
 @RestApi(baseUrl: ApiConstants.baseUrl)
 abstract class ServicesApi {
   factory ServicesApi(Dio dio, {String baseUrl}) = _ServicesApi;
+
+  ///Authentication
+
+  //Login
   @POST(ApiConstants.login)
   Future<LoginResponse> login(@Body() LoginRequest loginRequestBody);
+
+//signIn
+
+  @POST(ApiConstants.sigIn)
+  Future<SigninResponse> signIn(@Body() SigninRequest signInRequestBody);
 }

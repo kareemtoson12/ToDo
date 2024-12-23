@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tasky/core/routing/routes.dart';
+import 'package:tasky/core/routing/routing.dart';
 
 import 'package:tasky/tasky.dart';
 
