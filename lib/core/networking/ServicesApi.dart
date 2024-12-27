@@ -23,4 +23,8 @@ abstract class ServicesApi {
 
   @POST(ApiConstants.sigIn)
   Future<SigninResponse> signIn(@Body() SigninRequest signInRequestBody);
+
+  //get list of  tasks
+  @GET(ApiConstants.getTasks)
+  Future<List<dynamic>> getTasks();
 }

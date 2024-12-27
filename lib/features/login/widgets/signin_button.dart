@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
@@ -36,6 +37,8 @@ class SigninButton extends StatelessWidget {
               backgroundColor: Colors.green,
             ),
           );
+          // Navigate to home app screen
+          Navigator.pushReplacementNamed(context, Routes.home);
         }
       },
       child: Padding(

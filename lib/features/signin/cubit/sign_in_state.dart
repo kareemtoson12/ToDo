@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tasky/core/networking/api_result.dart';
+
 import 'package:tasky/features/signin/data/models/signIn_response.dart';
 
 abstract class SignInState extends Equatable {

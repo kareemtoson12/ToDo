@@ -14,7 +14,7 @@ final class LoginInitial extends LoginState {}
 final class LoginLoading extends LoginState {}
 
 final class LoginSucess extends LoginState {
-  LoginResponse loginResponse;
+  final LoginResponse loginResponse;
   LoginSucess(this.loginResponse);
 }
 

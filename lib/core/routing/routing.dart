@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasky/core/di/dependicy_injection.dart';
 import 'package:tasky/core/routing/app_routes.dart';
+import 'package:tasky/features/home/view.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
 import 'package:tasky/features/login/view.dart';
 import 'package:tasky/features/onboarding/view.dart';
@@ -16,6 +17,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case Routes.onboarding:
         return MaterialPageRoute(builder: (context) => const Onboarding());
+      case Routes.home:
+        return MaterialPageRoute(builder: (context) => const Home());
       case Routes.signUp:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(

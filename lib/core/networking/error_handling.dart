@@ -3,25 +3,42 @@ import 'constants.dart';
 import 'error_model.dart';
 
 enum DataSource {
+  // ignore: constant_identifier_names
   NO_CONTENT,
+  // ignore: constant_identifier_names
   BAD_REQUEST,
+  // ignore: constant_identifier_names
   FORBIDDEN,
+  // ignore: constant_identifier_names
   UNAUTORISED,
+  // ignore: constant_identifier_names
   NOT_FOUND,
+  // ignore: constant_identifier_names
   INTERNAL_SERVER_ERROR,
+  // ignore: constant_identifier_names
   CONNECT_TIMEOUT,
+  // ignore: constant_identifier_names
   CANCEL,
+  // ignore: constant_identifier_names
   RECIEVE_TIMEOUT,
+  // ignore: constant_identifier_names
   SEND_TIMEOUT,
+  // ignore: constant_identifier_names
   CACHE_ERROR,
+  // ignore: constant_identifier_names
   NO_INTERNET_CONNECTION,
+  // ignore: constant_identifier_names
   DEFAULT
 }
 
 class ResponseCode {
+  // ignore: constant_identifier_names
   static const int SUCCESS = 200; // success with data
+  // ignore: constant_identifier_names
   static const int NO_CONTENT = 201; // success with no data (no content)
+  // ignore: constant_identifier_names
   static const int BAD_REQUEST = 400; // failure, API rejected request
+  // ignore: constant_identifier_names
   static const int UNAUTORISED = 401; // failure, user is not authorised
   static const int FORBIDDEN = 403; // failure, API rejected request
   static const int INTERNAL_SERVER_ERROR = 500; // failure, crash in server side
