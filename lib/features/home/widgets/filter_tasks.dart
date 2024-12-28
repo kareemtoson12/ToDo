@@ -1,6 +1,9 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky/core/styles/color_manger.dart';
+import 'package:tasky/features/home/cubit/home_cubit.dart';
 
 class FilterTasks extends StatefulWidget {
   const FilterTasks({Key? key}) : super(key: key);
@@ -24,6 +27,7 @@ class _FilterTasksState extends State<FilterTasks> {
           onTap: () {
             setState(() {
               selectedFilter = "All";
+              BlocProvider.of<HomeCubit>(context).loadTasks(1);
             });
           },
         ),

@@ -19,7 +19,7 @@ class Tasky extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: appRouter.generateRoute,
-        initialRoute: Routes.home,
+        initialRoute: Routes.splash,
         title: 'tasky',
       ),
     );

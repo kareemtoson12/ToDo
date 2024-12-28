@@ -1,68 +1,37 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:tasky/features/home/data/models/get_tasks.response.dart';
+import 'package:tasky/features/home/data/repo/home_repo.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit({required this.homeRepo}) : super(HomeInitial());
+  final HomeRepo homeRepo;
 
-  // Example method to load initial data
-  Future<void> loadData() async {
-    emit(HomeLoading());
+  void loadTasks(int pageNum) async {
+    emit(GetTasksLoading());
     try {
-      final items = await fetchData(); // Replace with your data fetching logic
-      if (items.isEmpty) {
-        emit(HomeEmpty());
-      } else {
-        emit(HomeInfiniteScroll(items: items, hasMore: true));
-      }
-    } catch (e) {
-      emit(HomeError(e.toString()));
+      final result = await homeRepo.getTasks(pageNum);
+      result.when(
+        success: (List<GetTasksResponse> response) {
+          // Emit success state with the fetched tasks
+          if (response.isEmpty) {
+            emit(GetTasksEmpty());
+          } else {
+            emit(GetTasksSuccess(response));
+          }
+        },
+        failure: (errorHandler) {
+          // Handle failure and emit error state
+          String errorMessage = errorHandler.apiErrorModel.message ??
+              "An unknown error occurred. Please try again.";
+          emit(GetTasksError(errorMessage));
+        },
+      );
+    } catch (error) {
+      // Catch unexpected errors and emit error state
+      emit(GetTasksError("An unexpected error occurred. Please try again."));
     }
-  }
-
-  // Example method to refresh data
-  Future<void> refreshData() async {
-    emit(HomeRefreshing());
-    try {
-      final items = await fetchData(); // Replace with your data fetching logic
-      if (items.isEmpty) {
-        emit(HomeEmpty());
-      } else {
-        emit(HomeInfiniteScroll(items: items, hasMore: true));
-      }
-    } catch (e) {
-      emit(HomeError(e.toString()));
-    }
-  }
-
-  // Example method for infinite scroll
-  Future<void> loadMore(List<Object> currentItems) async {
-    emit(HomeInfiniteScroll(items: currentItems, hasMore: true));
-    try {
-      final newItems =
-          await fetchMoreData(); // Replace with your data fetching logic
-      if (newItems.isEmpty) {
-        emit(HomeInfiniteScroll(items: currentItems, hasMore: false));
-      } else {
-        emit(HomeInfiniteScroll(items: currentItems + newItems, hasMore: true));
-      }
-    } catch (e) {
-      emit(HomeError(e.toString()));
-    }
-  }
-
-  // Mock method to simulate data fetching
-  Future<List<Object>> fetchData() async {
-    await Future.delayed(Duration(seconds: 2)); // Simulate network delay
-    return List.generate(
-        10, (index) => 'Item $index'); // Replace with your actual items
-  }
-
-  // Mock method to simulate fetching more data
-  Future<List<Object>> fetchMoreData() async {
-    await Future.delayed(Duration(seconds: 2)); // Simulate network delay
-    return List.generate(
-        5, (index) => 'New Item $index'); // Replace with your actual items
   }
 }

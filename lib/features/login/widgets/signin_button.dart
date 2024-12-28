@@ -37,6 +37,7 @@ class SigninButton extends StatelessWidget {
               backgroundColor: Colors.green,
             ),
           );
+
           // Navigate to home app screen
           Navigator.pushReplacementNamed(context, Routes.home);
         }

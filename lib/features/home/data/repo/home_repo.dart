@@ -5,7 +5,7 @@ import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 
 class HomeRepo {
   final ServicesApi servicesApi;
-  HomeRepo(this.servicesApi);
+  HomeRepo({required this.servicesApi});
 
   Future<ApiResult<List<GetTasksResponse>>> getTasks(pageNum) async {
     try {

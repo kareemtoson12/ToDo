@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:tasky/core/helpers/constants.dart';
+import 'package:tasky/core/helpers/shared_pref_helpers.dart';
 
 import 'package:tasky/features/login/data/models/login_request.dart';
 import 'package:tasky/features/login/data/models/login_response.dart';
@@ -18,7 +20,10 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       final result = await servicesApi.login(loginRequest);
       result.when(
-        success: (response) => emit(LoginSucess(response)),
+        success: (LoginResponse response) async {
+          await saveUserToken(response.accessToken);
+          emit(LoginSucess(response));
+        },
         failure: (errorHandler) {
           String errorMessage =
               errorHandler.apiErrorModel.message ?? "Unknown Error";
@@ -31,5 +36,11 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginError(
           "An unexpected error occurred. Please try again.${error}"));
     }
+  }
+
+  Future<void> saveUserToken(String tokenn) async {
+    await SharedPrefHelper.setData(SharedPrefKeys.accessToken, tokenn);
+    print('********************************');
+    print(tokenn);
   }
 }

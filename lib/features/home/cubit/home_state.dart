@@ -10,32 +10,28 @@ sealed class HomeState extends Equatable {
 // Initial state
 final class HomeInitial extends HomeState {}
 
-// Loading state
-final class HomeLoading extends HomeState {}
+// GetTasks Loading state
+final class GetTasksLoading extends HomeState {}
 
 // Empty state
-final class HomeEmpty extends HomeState {}
+final class GetTasksEmpty extends HomeState {}
 
 // Error state
-final class HomeError extends HomeState {
+final class GetTasksError extends HomeState {
   final String message;
 
-  const HomeError(this.message);
+  const GetTasksError(this.message);
 
   @override
   List<Object> get props => [message];
 }
 
-// Refresher state (e.g., refreshing data)
-final class HomeRefreshing extends HomeState {}
+// Success state
+final class GetTasksSuccess extends HomeState {
+  final List<GetTasksResponse> tasks;
 
-// Infinite scroll state
-final class HomeInfiniteScroll extends HomeState {
-  final List<Object> items; // Replace `Object` with your specific item type
-  final bool hasMore;
-
-  const HomeInfiniteScroll({required this.items, required this.hasMore});
+  const GetTasksSuccess(this.tasks);
 
   @override
-  List<Object> get props => [items, hasMore];
+  List<Object> get props => [tasks];
 }

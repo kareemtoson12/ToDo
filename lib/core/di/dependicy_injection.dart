@@ -3,6 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tasky/core/networking/ServicesApi.dart';
 import 'package:tasky/core/networking/dio_factory.dart';
+import 'package:tasky/features/home/cubit/home_cubit.dart';
+import 'package:tasky/features/home/data/repo/home_repo.dart';
+import 'package:tasky/features/home/view.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
 import 'package:tasky/features/login/data/repo/login_repo.dart';
 import 'package:tasky/features/signin/cubit/sign_in_cubit.dart';
@@ -26,4 +29,6 @@ Future<void> setUpGetIt() async {
   getit.registerFactory<SignInCubit>(() => SignInCubit(signinRepo: getit()));
 
   //home
+  getit.registerLazySingleton<HomeRepo>(() => HomeRepo(servicesApi: getit()));
+  getit.registerFactory<HomeCubit>(() => HomeCubit(homeRepo: getit()));
 }

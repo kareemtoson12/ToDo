@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tasky/core/helpers/constants.dart';
@@ -17,23 +18,24 @@ class DioFactory {
       dio!
         ..options.connectTimeout = timeOut
         ..options.receiveTimeout = timeOut;
-      //  addDioHeaders();
+      addDioHeaders();
       addDioInterceptor();
       return dio!;
     } else {
       return dio!;
     }
   }
-/* 
+
   static void addDioHeaders() async {
     dio?.options.headers = {
       'Accept': 'application/json',
       'Authorization':
-          'Bearer ${await SharedPrefHelpers.getString(SharedPrefKeys.userToken)}',
+          'Bearer ${await SharedPrefHelper.getString(SharedPrefKeys.accessToken)}',
     };
-  } */
+  }
 
   static void setTokenIntoHeaderAfterLogin(String token) {
+    token = SharedPrefHelper.getString(SharedPrefKeys.accessToken);
     dio?.options.headers = {
       'Authorization': 'Bearer $token',
     };
