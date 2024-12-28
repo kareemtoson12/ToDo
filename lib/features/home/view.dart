@@ -11,92 +11,125 @@ import 'package:tasky/features/home/widgets/task_widget.dart';
 import 'package:tasky/features/home/cubit/home_cubit.dart';
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeCubit>().loadTasks(1);
+
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
+        context.read<HomeCubit>().hasMore) {
+      context.read<HomeCubit>().loadMoreTasks();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: AddTaskWidget(),
+      floatingActionButton: const AddTaskWidget(),
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(13.0.dg),
-            child: Column(
-              children: [
-                // Home header widget
-                Homeheader(),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'My Tasks',
-                      style: CustomstextStyels.font20grayBoldWight,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                // Filter tasks widget
-                Row(
-                  children: [FilterTasks()],
-                ),
-
-                // Tasks list
-                SizedBox(
-                  height: 10.h,
-                ),
-                BlocListener<HomeCubit, HomeState>(
-                  listener: (context, state) {
-                    if (state is GetTasksError) {
-                      // Show error if there's an error fetching tasks
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.message),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  },
-                  child: BlocBuilder<HomeCubit, HomeState>(
-                    builder: (context, state) {
-                      if (state is GetTasksLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is GetTasksEmpty) {
-                        return Center(child: Text("No tasks available."));
-                      } else if (state is GetTasksError) {
-                        return Center(child: Text(state.message));
-                      } else if (state is GetTasksSuccess) {
-                        // Render task widgets based on the tasks list
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: state.tasks.length,
-                          itemBuilder: (context, index) {
-                            GetTasksResponse task = state.tasks[index];
-                            return TaskWidget(
-                              taskDescription: task.title ?? 'No Title',
-                              taskBodyText: task.desc ?? 'No Description',
-                              taskDueDate: task.createdAt ?? formattedDate,
-                              taskPriority: task.priority ?? 'Medium',
-                              taskType: task.status ?? 'Pending',
-                            );
-                          },
-                        );
-                      }
-                      return Container(); // Return empty if state is unhandled
-                    },
-                  ),
-                ),
-              ],
-            ),
+        child: Padding(
+          padding: EdgeInsets.all(13.0.w),
+          child: Column(
+            children: [
+              const Homeheader(),
+              SizedBox(height: 20.h),
+              _buildTitle(),
+              SizedBox(height: 10.h),
+              const FilterTasks(),
+              SizedBox(height: 10.h),
+              _buildTaskList(),
+            ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildTitle() {
+    return Row(
+      children: [
+        Text(
+          'My Tasks',
+          style: CustomstextStyels.font20grayBoldWight,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTaskList() {
+    return Expanded(
+      child: BlocListener<HomeCubit, HomeState>(
+        listener: (context, state) {
+          if (state is GetTasksError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
+        child: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state is GetTasksLoading && state is! GetTasksSuccess) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is GetTasksEmpty) {
+              return const Center(child: Text("No tasks available."));
+            } else if (state is GetTasksError) {
+              return Center(child: Text(state.message));
+            } else if (state is GetTasksSuccess) {
+              return buildTaskListView(state.tasks);
+            }
+            return const SizedBox();
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget buildTaskListView(List<GetTasksResponse> tasks) {
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: tasks.length + (context.read<HomeCubit>().hasMore ? 1 : 0),
+      itemBuilder: (context, index) {
+        if (index == tasks.length && context.read<HomeCubit>().hasMore) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (index < tasks.length) {
+          final task = tasks[index];
+          return TaskWidget(
+            taskDescription: task.title ?? 'No Title',
+            taskBodyText: task.desc ?? 'No Description',
+            taskDueDate: task.createdAt ?? formattedDate,
+            taskPriority: task.priority ?? 'Medium',
+            taskType: task.status ?? 'Pending',
+          );
+        }
+        return const SizedBox();
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
   }
 }
 

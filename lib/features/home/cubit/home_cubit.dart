@@ -11,18 +11,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   // Store all tasks
   List<GetTasksResponse> allTasks = [];
+  bool hasMore = true; // Indicates if more tasks are available
+  int currentPage = 1; // Track the current page
 
   void loadTasks(int pageNum) async {
+    if (!hasMore) return; // Don't fetch more if there are no more tasks
     emit(GetTasksLoading());
     try {
       final result = await homeRepo.getTasks(pageNum);
       result.when(
         success: (List<GetTasksResponse> response) {
           if (response.isEmpty) {
-            emit(GetTasksEmpty());
+            hasMore = false; // No more tasks available
+            emit(GetTasksSuccess(allTasks)); // Emit current list of tasks
           } else {
-            allTasks = response; // Store all tasks locally
-            emit(GetTasksSuccess(response)); // Emit all tasks initially
+            allTasks.addAll(response); // Append new tasks to the list
+            emit(GetTasksSuccess(allTasks)); // Emit updated list of tasks
           }
         },
         failure: (errorHandler) {
@@ -49,5 +53,11 @@ class HomeCubit extends Cubit<HomeState> {
         emit(GetTasksSuccess(filteredTasks));
       }
     }
+  }
+
+  // Call this to load more tasks (pagination)
+  void loadMoreTasks() {
+    currentPage++;
+    loadTasks(currentPage);
   }
 }

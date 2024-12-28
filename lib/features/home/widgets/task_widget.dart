@@ -58,10 +58,10 @@ class TaskWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        taskDescription,
+                        taskDescription.length > 12
+                            ? '${taskDescription.substring(0, 12)}...'
+                            : taskDescription,
                         style: CustomstextStyels.font15black700Wight,
-                        maxLines: 1, // Limit to 1 line
-                        overflow: TextOverflow.ellipsis,
                       ),
                       Container(
                         width: 80.w,
