@@ -10,11 +10,10 @@ class LoginResponse {
     required this.refresh_token,
   }) : _id = id;
 
-  // Getter for _id (since it's private)
   String get id => _id;
-  // Getter for access_token
+
   String get accessToken => access_token;
-  // Getter for refresh_token
+
   String get refreshToken => refresh_token;
 
   // Factory constructor for creating a new LoginResponse from JSON

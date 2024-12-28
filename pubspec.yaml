@@ -50,6 +50,8 @@ dependencies:
   barcode_widget: ^2.0.4
   barcode_scan2: ^4.3.3
 
+
+
   
 
 dev_dependencies:

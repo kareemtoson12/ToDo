@@ -1,8 +1,8 @@
 class ApiConstants {
   static const String baseUrl = "https://todo.iraqsapp.com/";
   static const String login = 'auth/login';
-  static const String sigIn = '/auth/register';
-  static const String getTasks = 'todos?page=1';
+  static const String sigIn = 'auth/register';
+  static const String getTasks = 'todos';
 }
 
 class ApiErrors {

@@ -71,7 +71,7 @@ class _ServicesApi implements ServicesApi {
     )
         .compose(
           _dio.options,
-          '/auth/register',
+          'auth/register',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -84,6 +84,42 @@ class _ServicesApi implements ServicesApi {
     late SigninResponse _value;
     try {
       _value = SigninResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<List<GetTasksResponse>> getTasks(int pageNum) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': pageNum};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<GetTasksResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'todos',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<GetTasksResponse> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              GetTasksResponse.fromJson(i as Map<String, dynamic>))
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

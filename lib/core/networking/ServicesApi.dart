@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import 'package:tasky/core/networking/constants.dart';
+import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 import 'package:tasky/features/login/data/models/login_request.dart';
 import 'package:tasky/features/login/data/models/login_response.dart';
 import 'package:tasky/features/signin/data/models/signIn_request.dart';
@@ -25,6 +26,7 @@ abstract class ServicesApi {
   Future<SigninResponse> signIn(@Body() SigninRequest signInRequestBody);
 
   //get list of  tasks
+
   @GET(ApiConstants.getTasks)
-  Future<List<dynamic>> getTasks();
+  Future<List<GetTasksResponse>> getTasks(@Query("page") int pageNum);
 }
