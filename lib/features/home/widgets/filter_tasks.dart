@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +12,6 @@ class FilterTasks extends StatefulWidget {
 }
 
 class _FilterTasksState extends State<FilterTasks> {
-  // This variable keeps track of the currently selected filter
   String selectedFilter = "All";
 
   @override
@@ -27,16 +25,17 @@ class _FilterTasksState extends State<FilterTasks> {
           onTap: () {
             setState(() {
               selectedFilter = "All";
-              BlocProvider.of<HomeCubit>(context).loadTasks(1);
+              BlocProvider.of<HomeCubit>(context).filterTasks("All");
             });
           },
         ),
         FilterButton(
           label: "InProgress",
-          isSelected: selectedFilter == "In Progress",
+          isSelected: selectedFilter == "InProgress",
           onTap: () {
             setState(() {
-              selectedFilter = "In Progress";
+              selectedFilter = "InProgress";
+              BlocProvider.of<HomeCubit>(context).filterTasks("Inprogress");
             });
           },
         ),
@@ -46,6 +45,7 @@ class _FilterTasksState extends State<FilterTasks> {
           onTap: () {
             setState(() {
               selectedFilter = "Waiting";
+              BlocProvider.of<HomeCubit>(context).filterTasks("waiting");
             });
           },
         ),
@@ -55,6 +55,7 @@ class _FilterTasksState extends State<FilterTasks> {
           onTap: () {
             setState(() {
               selectedFilter = "Finished";
+              BlocProvider.of<HomeCubit>(context).filterTasks("Finished");
             });
           },
         ),

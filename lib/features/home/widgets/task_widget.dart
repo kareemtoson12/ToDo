@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
+import 'package:tasky/features/home/widgets/tasks_types_colors.dart';
 
 class TaskWidget extends StatelessWidget {
   final String taskType;
@@ -10,26 +11,26 @@ class TaskWidget extends StatelessWidget {
   final String taskDueDate;
   final String taskBodyText;
 
-  TaskWidget(
-      {super.key,
-      required this.taskType,
-      required this.taskDescription,
-      required this.taskPriority,
-      required this.taskDueDate,
-      required this.taskBodyText});
+  TaskWidget({
+    super.key,
+    required this.taskType,
+    required this.taskDescription,
+    required this.taskPriority,
+    required this.taskDueDate,
+    required this.taskBodyText,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add your click action here
         print("Task clicked");
       },
       child: Container(
-        padding: EdgeInsets.all(8.0.dg),
+        padding: EdgeInsets.all(8.0.w),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12.0.dg),
+          borderRadius: BorderRadius.circular(12.0.w),
           boxShadow: [
             BoxShadow(
               color: ColorsManger.myWhiteColor,
@@ -41,7 +42,7 @@ class TaskWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // PNG Image
+            // Placeholder Image
             Image.asset(
               "assets/images/png/cart.png",
               width: 50.w,
@@ -65,23 +66,27 @@ class TaskWidget extends StatelessWidget {
                       Container(
                         width: 80.w,
                         height: 25.h,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0.w, vertical: 4.0.h),
                         decoration: BoxDecoration(
-                          color: ColorsManger.myRedHavan,
+                          color: getContainerColor(taskType), // Dynamic color
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Center(
-                          child: Text(taskType,
-                              style: CustomstextStyels.font14ForHihgtTasks),
+                          child: Text(
+                            taskType,
+                            style: getTextStyle(taskType), // Dynamic style
+                          ),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 8.0.h),
                   // Task Description
-                  Text(taskBodyText,
-                      style: CustomstextStyels.font20black700Wight),
+                  Text(
+                    taskBodyText,
+                    style: CustomstextStyels.font20black700Wight,
+                  ),
                   SizedBox(height: 16.0.h),
                   // Metadata: Priority and Date
                   Row(
@@ -91,12 +96,16 @@ class TaskWidget extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.flag,
-                            color: ColorsManger.mediumColor,
+                            color: getPeriortyColor(taskPriority),
                             size: 20.0,
                           ),
                           const SizedBox(width: 4.0),
-                          Text(taskPriority,
-                              style: CustomstextStyels.font14ForMediumTasks),
+                          Text(
+                            taskPriority,
+                            style: CustomstextStyels.font14ForMediumTasks
+                                .copyWith(
+                                    color: getPeriortyColor(taskPriority)),
+                          ),
                         ],
                       ),
                       Text(
@@ -111,8 +120,6 @@ class TaskWidget extends StatelessWidget {
                 ],
               ),
             ),
-            // Additional Menu Icon
-
             Icon(
               Icons.more_vert,
               color: ColorsManger.customsGray,

@@ -12,6 +12,8 @@ class ColorsManger {
   static const Color myOrang = Color(0xffFF7D53);
   static const Color mediumColor = Color(0xff5F33E1);
   static const Color lowColor = Color(0xff0087FF);
+  static const Color finshedColorr = Color(0xffE3F2FF);
+
   static const Color highColor = Color(0xffFF7D53);
   static Color customsGray = Colors.black.withOpacity(0.6);
 }

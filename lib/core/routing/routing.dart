@@ -20,10 +20,12 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => const Onboarding());
       case Routes.home:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => getit<HomeCubit>(),
-                  child: Home(),
-                ));
+          builder: (context) => BlocProvider(
+            create: (context) => getit<HomeCubit>()..loadTasks(1),
+            child: Home(),
+          ),
+        );
+
       case Routes.signUp:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
