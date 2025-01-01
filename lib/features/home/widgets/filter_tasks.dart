@@ -35,7 +35,7 @@ class _FilterTasksState extends State<FilterTasks> {
           onTap: () {
             setState(() {
               selectedFilter = "InProgress";
-              BlocProvider.of<HomeCubit>(context).filterTasks("Inprogress");
+              BlocProvider.of<HomeCubit>(context).filterTasks("inprogress");
             });
           },
         ),
@@ -55,7 +55,7 @@ class _FilterTasksState extends State<FilterTasks> {
           onTap: () {
             setState(() {
               selectedFilter = "Finished";
-              BlocProvider.of<HomeCubit>(context).filterTasks("Finished");
+              BlocProvider.of<HomeCubit>(context).filterTasks("finished");
             });
           },
         ),

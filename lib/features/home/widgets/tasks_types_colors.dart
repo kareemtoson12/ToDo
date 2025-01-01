@@ -8,6 +8,8 @@ Color getContainerColor(String taskType) {
       return ColorsManger.myRedHavan;
     case 'Inprogress':
       return ColorsManger.secondColor;
+    case 'inprogress':
+      return ColorsManger.secondColor;
     case 'finished':
       return ColorsManger.finshedColorr;
     default:
@@ -33,6 +35,8 @@ TextStyle getTextStyle(String taskType) {
     case 'waiting':
       return CustomstextStyels.font14ForHihgtTasks;
     case 'Inprogress':
+      return CustomstextStyels.font14ForMediumTasks;
+    case 'inprogress':
       return CustomstextStyels.font14ForMediumTasks;
     case 'finished':
       return CustomstextStyels.font14ForlowTasks;
