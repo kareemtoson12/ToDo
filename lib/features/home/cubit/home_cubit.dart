@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
+import 'package:tasky/features/home/data/models/refresh_token.dart';
 import 'package:tasky/features/home/data/repo/home_repo.dart';
 
 part 'home_state.dart';
@@ -59,5 +61,28 @@ class HomeCubit extends Cubit<HomeState> {
   void loadMoreTasks() {
     currentPage++;
     loadTasks(currentPage);
+  }
+
+//refresh token
+  void refreshToken(String token) async {
+    try {
+      final response = await homeRepo.refreshToken(token);
+
+      response.when(
+        success: (response) {
+          if (response.access_token.isEmpty) {
+            emit(RefreshTokenSuccess(response)); // Emit current list of tasks
+          }
+        },
+        failure: (errorHandler) {
+          String errorMessage = errorHandler.apiErrorModel.message ??
+              "An unknown error occurred. Please try again.";
+          emit(RefreshTokenError(errorMessage));
+        },
+      );
+    } on Exception catch (error) {
+      emit(
+          RefreshTokenError("An unexpected error occurred. Please try again."));
+    }
   }
 }

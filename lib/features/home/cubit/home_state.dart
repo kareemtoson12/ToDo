@@ -35,3 +35,26 @@ final class GetTasksSuccess extends HomeState {
   @override
   List<Object> get props => [tasks];
 }
+
+// RefreshToken Loading state
+final class RefreshTokenLoading extends HomeState {}
+
+// RefreshToken Success state
+final class RefreshTokenSuccess extends HomeState {
+  final RefreshTokenResponse refreshTokenResponse;
+
+  const RefreshTokenSuccess(this.refreshTokenResponse);
+
+  @override
+  List<Object> get props => [refreshTokenResponse];
+}
+
+// RefreshToken Error state
+final class RefreshTokenError extends HomeState {
+  final String message;
+
+  const RefreshTokenError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

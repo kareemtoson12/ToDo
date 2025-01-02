@@ -22,6 +22,7 @@ class LoginCubit extends Cubit<LoginState> {
       result.when(
         success: (LoginResponse response) async {
           await saveUserToken(response.accessToken);
+          await saveRefreshToken(response.refreshToken);
           emit(LoginSucess(response));
         },
         failure: (errorHandler) {
@@ -40,6 +41,12 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> saveUserToken(String tokenn) async {
     await SharedPrefHelper.setData(SharedPrefKeys.accessToken, tokenn);
+    print('********************************');
+    print(tokenn);
+  }
+
+  Future<void> saveRefreshToken(String tokenn) async {
+    await SharedPrefHelper.setData(SharedPrefKeys.refreshToken, tokenn);
     print('********************************');
     print(tokenn);
   }

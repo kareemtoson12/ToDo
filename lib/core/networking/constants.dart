@@ -3,6 +3,7 @@ class ApiConstants {
   static const String login = 'auth/login';
   static const String sigIn = 'auth/register';
   static const String getTasks = 'todos';
+  static const String refreshTToken = 'auth/refresh-token';
 }
 
 class ApiErrors {
