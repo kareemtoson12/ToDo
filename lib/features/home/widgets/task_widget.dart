@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
+
+import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 import 'package:tasky/features/home/widgets/tasks_types_colors.dart';
+import 'package:tasky/features/task_details/view.dart';
 
 class TaskWidget extends StatelessWidget {
   final String taskType;
@@ -10,6 +15,7 @@ class TaskWidget extends StatelessWidget {
   final String taskPriority;
   final String taskDueDate;
   final String taskBodyText;
+  final GetTasksResponse task; // Pass the entire task object
 
   TaskWidget({
     super.key,
@@ -18,13 +24,20 @@ class TaskWidget extends StatelessWidget {
     required this.taskPriority,
     required this.taskDueDate,
     required this.taskBodyText,
+    required this.task,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("Task clicked");
+        // Navigate to TaskDetailsScreen with the task data
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TaskDetailsScreen(task: task),
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.all(8.0.w),

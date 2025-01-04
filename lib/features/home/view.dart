@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:tasky/core/helpers/constants.dart';
-import 'package:tasky/core/helpers/shared_pref_helpers.dart';
 
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/home/widgets/add_task.dart';
@@ -58,20 +56,6 @@ class _HomeState extends State<Home> {
               _buildTaskList(),
 
               // refresh token test
-              ElevatedButton(
-                onPressed: () async {
-                  final x = await SharedPrefHelper.getString(
-                      SharedPrefKeys.refreshToken);
-                  print('Refresh Token***********: $x'); // Debugging line
-                  if (x != null && x.isNotEmpty) {
-                    context.read<HomeCubit>().refreshToken(
-                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjQ5ZmIyZWVmMGJmOTNkZDAwNzExYmEiLCJpYXQiOjE3MzU3NjEzMjV9.eHbQpTgRH8yFzSZOJRNa5DC542D-Tb3Hpi26A1pieiY');
-                  } else {
-                    print('Refresh token is null or empty');
-                  }
-                },
-                child: Text("Refresh Token"),
-              )
             ],
           ),
         ),
@@ -131,6 +115,7 @@ class _HomeState extends State<Home> {
         } else if (index < tasks.length) {
           final task = tasks[index];
           return TaskWidget(
+            task: task,
             taskDescription: task.title ?? 'No Title',
             taskBodyText: task.desc ?? 'No Description',
             taskDueDate: task.createdAt ?? formattedDate,

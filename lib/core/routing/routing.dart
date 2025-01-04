@@ -16,6 +16,7 @@ class AppRoutes {
     switch (screen.name) {
       case Routes.splash:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
+
       case Routes.onboarding:
         return MaterialPageRoute(builder: (context) => const Onboarding());
       case Routes.home:

@@ -62,9 +62,10 @@ class HomeCubit extends Cubit<HomeState> {
     currentPage++;
     loadTasks(currentPage);
   }
+}
 
-//refresh token
-  void refreshToken(String token) async {
+
+ /* void refreshToken(String token) async {
     try {
       final response = await homeRepo.refreshToken(token);
 
@@ -80,9 +81,8 @@ class HomeCubit extends Cubit<HomeState> {
           emit(RefreshTokenError(errorMessage));
         },
       );
-    } on Exception catch (error) {
-      emit(
-          RefreshTokenError("An unexpected error occurred. Please try again."));
+    } on Exception catch (e) {
+      emit(RefreshTokenError(
+          "An unexpected error occurred. Please try again." + e.toString()));
     }
-  }
-}
+  } */

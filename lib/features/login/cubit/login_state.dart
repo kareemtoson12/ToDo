@@ -1,11 +1,5 @@
 part of 'login_cubit.dart';
 
-class ErrorHandler {
-  final String message;
-
-  ErrorHandler(this.message);
-}
-
 @immutable
 sealed class LoginState {}
 

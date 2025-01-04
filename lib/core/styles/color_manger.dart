@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class ColorsManger {
@@ -15,5 +13,6 @@ class ColorsManger {
   static const Color finshedColorr = Color(0xffE3F2FF);
 
   static const Color highColor = Color(0xffFF7D53);
+  // ignore: deprecated_member_use
   static Color customsGray = Colors.black.withOpacity(0.6);
 }

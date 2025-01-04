@@ -16,6 +16,7 @@ class CustomstextStyels {
   static TextStyle font20grayBoldWight = TextStyle(
       fontSize: 20.sp,
       fontWeight: FontWeight.bold,
+      // ignore: deprecated_member_use
       color: Colors.black.withOpacity(0.6));
 
   // periorty tasks
