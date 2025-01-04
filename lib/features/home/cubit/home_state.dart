@@ -58,3 +58,19 @@ final class RefreshTokenError extends HomeState {
   @override
   List<Object> get props => [message];
 }
+
+// DeleteTask Loading state
+final class DeleteTaskLoading extends HomeState {}
+
+// DeleteTask Success state
+final class DeleteTaskSuccess extends HomeState {}
+
+// DeleteTask Error state
+final class DeleteTaskError extends HomeState {
+  final String message;
+
+  const DeleteTaskError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

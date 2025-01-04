@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:intl/intl.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
@@ -23,6 +24,7 @@ class TaskDetailsScreen extends StatefulWidget {
 class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   String? _selectedStatus;
   String? _selectedPeriorty;
+  DateTime? _selectedDate; // Store selected date
 
   final List<String> _statusOptions = [
     'In Progress',

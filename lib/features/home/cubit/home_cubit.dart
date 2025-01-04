@@ -62,6 +62,8 @@ class HomeCubit extends Cubit<HomeState> {
     currentPage++;
     loadTasks(currentPage);
   }
+
+//delete task by id
 }
 
 
