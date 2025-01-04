@@ -17,10 +17,15 @@ class Homeheader extends StatelessWidget {
           width: 200.w,
         ),
         //add svg image
-        SvgPicture.asset(
-          "assets/images/svg/profile.svg",
-          width: 30,
-          height: 30,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: SvgPicture.asset(
+            "assets/images/svg/profile.svg",
+            width: 30,
+            height: 30,
+          ),
         ),
         SizedBox(
           width: 30.w,

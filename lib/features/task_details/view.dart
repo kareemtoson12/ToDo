@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:intl/intl.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
@@ -48,7 +47,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
             child: Column(
               children: [
                 // Header
-                Taskdetailsheader(),
+                Taskdetailsheader(
+                  taskId: widget.task.sId!,
+                ),
                 // Task Details
                 Padding(
                   padding: const EdgeInsets.all(16.0),

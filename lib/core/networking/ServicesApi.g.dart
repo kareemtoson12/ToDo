@@ -161,19 +161,19 @@ class _ServicesApi implements ServicesApi {
   }
 
   @override
-  Future<void> deleteTask(String taskId) async {
+  Future<TaskDelete> deleteTask(String id) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'taskId': taskId};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<void>(Options(
+    final _options = _setStreamType<TaskDelete>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          'todos',
+          '/todos/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -182,7 +182,15 @@ class _ServicesApi implements ServicesApi {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late TaskDelete _value;
+    try {
+      _value = TaskDelete.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

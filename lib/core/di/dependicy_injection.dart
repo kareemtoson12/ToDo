@@ -30,4 +30,7 @@ Future<void> setUpGetIt() async {
   //home
   getit.registerLazySingleton<HomeRepo>(() => HomeRepo(servicesApi: getit()));
   getit.registerFactory<HomeCubit>(() => HomeCubit(homeRepo: getit()));
+
+  //task details
+  // getit.registerLazySingleton<TaskDetailsRepo>(
 }

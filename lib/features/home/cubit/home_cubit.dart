@@ -63,19 +63,44 @@ class HomeCubit extends Cubit<HomeState> {
     loadTasks(currentPage);
   }
 
-//delete task by id
-}
-
-
- /* void refreshToken(String token) async {
+//delete task using id
+  void deleteTask(String id) async {
+    emit(DeleteTaskLoading());
     try {
-      final response = await homeRepo.refreshToken(token);
+      final result = await homeRepo.deleteTask(id);
+      result.when(
+        success: (response) async {
+          emit(DeleteTaskSuccess());
+          // Refetch tasks from the backend
+          final updatedTasks = await homeRepo.getTasks(1);
+          updatedTasks.when(
+            success: (List<GetTasksResponse> response) {
+              allTasks = response;
+              emit(GetTasksSuccess(allTasks));
+              emit(DeleteTaskSuccess());
+            },
+            failure: (errorHandler) {
+              emit(GetTasksError("Failed to refetch tasks."));
+            },
+          );
+        },
+        failure: (errorHandler) {
+          emit(DeleteTaskError("Failed to delete task."));
+        },
+      );
+    } catch (error) {
+      emit(DeleteTaskError("An unexpected error occurred. Please try again."));
+    }
+  }
 
-      response.when(
+  //refresh token
+  void refreshToken(String token) async {
+    emit(RefreshTokenLoading());
+    try {
+      final result = await homeRepo.refreshToken(token);
+      result.when(
         success: (response) {
-          if (response.access_token.isEmpty) {
-            emit(RefreshTokenSuccess(response)); // Emit current list of tasks
-          }
+          emit(RefreshTokenSuccess(response));
         },
         failure: (errorHandler) {
           String errorMessage = errorHandler.apiErrorModel.message ??
@@ -83,8 +108,9 @@ class HomeCubit extends Cubit<HomeState> {
           emit(RefreshTokenError(errorMessage));
         },
       );
-    } on Exception catch (e) {
-      emit(RefreshTokenError(
-          "An unexpected error occurred. Please try again." + e.toString()));
+    } catch (error) {
+      emit(
+          RefreshTokenError("An unexpected error occurred. Please try again."));
     }
-  } */
+  }
+}

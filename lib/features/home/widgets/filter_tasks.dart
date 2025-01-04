@@ -25,7 +25,7 @@ class _FilterTasksState extends State<FilterTasks> {
           onTap: () {
             setState(() {
               selectedFilter = "All";
-              BlocProvider.of<HomeCubit>(context).filterTasks("All");
+              context.read<HomeCubit>().loadTasks(1);
             });
           },
         ),

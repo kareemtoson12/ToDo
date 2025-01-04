@@ -8,6 +8,7 @@ import 'package:tasky/features/login/data/models/login_request.dart';
 import 'package:tasky/features/login/data/models/login_response.dart';
 import 'package:tasky/features/signin/data/models/signIn_request.dart';
 import 'package:tasky/features/signin/data/models/signIn_response.dart';
+import 'package:tasky/features/task_details/data/model/delete_response.dart';
 
 part 'ServicesApi.g.dart';
 
@@ -33,4 +34,7 @@ abstract class ServicesApi {
   // update token
   @GET(ApiConstants.refreshTToken)
   Future<RefreshTokenResponse> refreshToken(@Query("token") String token);
+  //delete task using id
+  @DELETE("/todos/{id}")
+  Future<TaskDelete> deleteTask(@Path("id") String id);
 }

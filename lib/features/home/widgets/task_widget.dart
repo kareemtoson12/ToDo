@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tasky/core/di/dependicy_injection.dart';
+import 'package:tasky/core/routing/app_routes.dart';
 
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
-import 'package:tasky/features/home/cubit/home_cubit.dart';
 
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 import 'package:tasky/features/home/widgets/tasks_types_colors.dart';
@@ -35,14 +33,11 @@ class TaskWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // Navigate to TaskDetailsScreen with the task data
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                create: (context) => getit<HomeCubit>(),
-                child: TaskDetailsScreen(task: task),
-              ),
-            ));
+        Navigator.pushNamed(
+          context, // This context must include BlocProvider<HomeCubit>
+          Routes.taskDeatils,
+          arguments: task,
+        );
       },
       child: Container(
         padding: EdgeInsets.all(8.0.w),

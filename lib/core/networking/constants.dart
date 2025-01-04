@@ -4,6 +4,7 @@ class ApiConstants {
   static const String sigIn = 'auth/register';
   static const String getTasks = 'todos';
   static const String refreshTToken = 'auth/refresh-token';
+  static const String deleteTask = 'todos';
 }
 
 class ApiErrors {
