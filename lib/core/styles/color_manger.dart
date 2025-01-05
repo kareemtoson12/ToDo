@@ -11,6 +11,7 @@ class ColorsManger {
   static const Color mediumColor = Color(0xff5F33E1);
   static const Color lowColor = Color(0xff0087FF);
   static const Color finshedColorr = Color(0xffE3F2FF);
+  static const Color widgetcolor = Color(0xffF5F5F5);
 
   static const Color highColor = Color(0xffFF7D53);
   // ignore: deprecated_member_use

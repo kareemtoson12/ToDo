@@ -5,6 +5,10 @@ import 'package:tasky/core/styles/color_manger.dart';
 class CustomstextStyels {
   static TextStyle font24black700Wight = TextStyle(
       fontSize: 25.sp, fontWeight: FontWeight.w700, color: Colors.black);
+  static TextStyle font20GrayWight = TextStyle(
+      fontSize: 20.sp,
+      fontWeight: FontWeight.w700,
+      color: ColorsManger.customsGray);
   static TextStyle font15black700Wight = TextStyle(
       fontSize: 15.sp, fontWeight: FontWeight.w700, color: Colors.black);
   static TextStyle font18White700Wight = TextStyle(

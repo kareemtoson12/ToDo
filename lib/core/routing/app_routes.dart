@@ -6,4 +6,5 @@ class Routes {
   static const String home = '/HomeScreen';
   static const String taskDeatils = '/TaskDetailsScreen';
   static const String editTask = '/EditTaskWidget';
+  static const String profile = '/EditTaskWidget';
 }
