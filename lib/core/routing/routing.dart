@@ -7,6 +7,7 @@ import 'package:tasky/features/onboarding/view.dart';
 import 'package:tasky/features/signin/view.dart';
 import 'package:tasky/features/splash/view.dart';
 import 'package:tasky/features/task_details/view.dart';
+import 'package:tasky/features/task_details/widgets/edit_task.dart';
 
 class AppRoutes {
   Route? generateRoute(RouteSettings screen) {
@@ -22,6 +23,13 @@ class AppRoutes {
 
       case Routes.signUp:
         return MaterialPageRoute(builder: (context) => const SignIn());
+
+      case Routes.editTask:
+        final String taskId = screen.arguments as String;
+        return MaterialPageRoute(
+            builder: (context) => EditTaskWidget(
+                  taskId: taskId,
+                ));
 
       case Routes.taskDeatils:
         final GetTasksResponse task = screen.arguments as GetTasksResponse;

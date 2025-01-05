@@ -74,3 +74,26 @@ final class DeleteTaskError extends HomeState {
   @override
   List<Object> get props => [message];
 }
+
+//editTask Loading state
+final class EditTaskLoading extends HomeState {}
+
+// editTask Success state
+final class EditTaskSuccess extends HomeState {
+  final EditResponseModel editTaskResponse;
+
+  const EditTaskSuccess(this.editTaskResponse);
+
+  @override
+  List<Object> get props => [editTaskResponse];
+}
+
+// editTask Error state
+final class EditTaskError extends HomeState {
+  final String message;
+
+  const EditTaskError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

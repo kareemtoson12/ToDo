@@ -23,7 +23,6 @@ class TaskDetailsScreen extends StatefulWidget {
 class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   String? _selectedStatus;
   String? _selectedPeriorty;
-  DateTime? _selectedDate; // Store selected date
 
   final List<String> _statusOptions = [
     'In Progress',
@@ -47,7 +46,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
             child: Column(
               children: [
                 // Header
-                Taskdetailsheader(
+                TaskDetailsHeader(
                   taskId: widget.task.sId!,
                 ),
                 // Task Details

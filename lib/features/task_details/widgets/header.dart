@@ -6,10 +6,10 @@ import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/home/cubit/home_cubit.dart';
 
-class Taskdetailsheader extends StatelessWidget {
+class TaskDetailsHeader extends StatelessWidget {
   final String taskId;
 
-  const Taskdetailsheader({
+  const TaskDetailsHeader({
     super.key,
     required this.taskId,
   });
@@ -21,8 +21,7 @@ class Taskdetailsheader extends StatelessWidget {
         if (state is DeleteTaskSuccess) {
           // Show a success message and navigate back
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Task deleted successfully.')),
-            //navigato to home
+            const SnackBar(content: Text('Task deleted successfully.')),
           );
           Navigator.pushReplacementNamed(context, Routes.home);
         } else if (state is DeleteTaskError) {
@@ -30,11 +29,20 @@ class Taskdetailsheader extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
+        } else if (state is EditTaskSuccess) {
+          // Show a success message after editing
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Task edited successfully.')),
+          );
+        } else if (state is EditTaskError) {
+          // Show an error message for edit failure
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
         }
       },
       child: Row(
         children: [
-          // Back arrow SVG
           GestureDetector(
             onTap: () {
               Navigator.of(context).pop();
@@ -44,7 +52,6 @@ class Taskdetailsheader extends StatelessWidget {
             ),
           ),
           SizedBox(width: 24.w),
-          // Title
           Text(
             'Task Details',
             style: TextStyle(
@@ -52,38 +59,40 @@ class Taskdetailsheader extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Spacer(), // Pushes the icon to the end
-          // Popup Menu Button
+          const Spacer(),
           PopupMenuButton<String>(
-            icon: Icon(
+            icon: const Icon(
               Icons.more_vert,
               color: Colors.black,
             ),
             onSelected: (String value) {
-              // Handle menu item selection
               if (value == 'edit') {
-                // Add logic for editing the task
-                print('Edit task');
+                // Navigate to an edit screen
+                Navigator.pushNamed(
+                  context,
+                  Routes.editTask,
+                  arguments: taskId,
+                );
               } else if (value == 'delete') {
-                // Confirm deletion before proceeding
+                // Confirm deletion
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Delete Task'),
-                      content:
-                          Text('Are you sure you want to delete this task?'),
+                      title: const Text('Delete Task'),
+                      content: const Text(
+                          'Are you sure you want to delete this task?'),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(),
-                          child: Text('Cancel'),
+                          child: const Text('Cancel'),
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pop(); // Close dialog
+                            Navigator.of(context).pop();
                             context.read<HomeCubit>().deleteTask(taskId);
                           },
-                          child: Text('Delete'),
+                          child: const Text('Delete'),
                         ),
                       ],
                     );

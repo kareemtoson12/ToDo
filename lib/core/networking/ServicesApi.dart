@@ -8,7 +8,9 @@ import 'package:tasky/features/login/data/models/login_request.dart';
 import 'package:tasky/features/login/data/models/login_response.dart';
 import 'package:tasky/features/signin/data/models/signIn_request.dart';
 import 'package:tasky/features/signin/data/models/signIn_response.dart';
-import 'package:tasky/features/task_details/data/model/delete_response.dart';
+import 'package:tasky/features/task_details/data/model/deleteModel/delete_response.dart';
+import 'package:tasky/features/task_details/data/model/editModel/edit_request_model.dart';
+import 'package:tasky/features/task_details/data/model/editModel/edit_response_model.dart';
 
 part 'ServicesApi.g.dart';
 
@@ -37,4 +39,8 @@ abstract class ServicesApi {
   //delete task using id
   @DELETE("/todos/{id}")
   Future<TaskDelete> deleteTask(@Path("id") String id);
+  //edit task using id
+  @PUT("/todos/{id}")
+  Future<EditResponseModel> editTask(
+      @Path("id") String id, @Body() EditRequestModel task);
 }

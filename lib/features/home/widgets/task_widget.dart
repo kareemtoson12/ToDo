@@ -8,7 +8,6 @@ import 'package:tasky/core/styles/text_styles.dart';
 
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 import 'package:tasky/features/home/widgets/tasks_types_colors.dart';
-import 'package:tasky/features/task_details/view.dart';
 
 class TaskWidget extends StatelessWidget {
   final String taskType;
@@ -18,7 +17,7 @@ class TaskWidget extends StatelessWidget {
   final String taskBodyText;
   final GetTasksResponse task; // Pass the entire task object
 
-  TaskWidget({
+  const TaskWidget({
     super.key,
     required this.taskType,
     required this.taskDescription,

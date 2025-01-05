@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 import 'package:tasky/features/home/data/models/refresh_token.dart';
 import 'package:tasky/features/home/data/repo/home_repo.dart';
+import 'package:tasky/features/task_details/data/model/editModel/edit_request_model.dart';
+import 'package:tasky/features/task_details/data/model/editModel/edit_response_model.dart';
 
 part 'home_state.dart';
 
@@ -111,6 +113,35 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (error) {
       emit(
           RefreshTokenError("An unexpected error occurred. Please try again."));
+    }
+  }
+
+  //edit task using id
+  void editTask(String taskId, EditRequestModel editreqModel) async {
+    emit(EditTaskLoading());
+    try {
+      final result = await homeRepo.editTask(taskId, editreqModel);
+      result.when(
+        success: (EditResponseModel response) async {
+          emit(EditTaskSuccess(response));
+          // Refetch tasks from the backend
+          final updatedTasks = await homeRepo.getTasks(1);
+          updatedTasks.when(
+            success: (List<GetTasksResponse> response) {
+              allTasks = response;
+              emit(GetTasksSuccess(allTasks));
+            },
+            failure: (errorHandler) {
+              emit(GetTasksError("Failed to refetch tasks."));
+            },
+          );
+        },
+        failure: (errorHandler) {
+          emit(EditTaskError("Failed to edit task."));
+        },
+      );
+    } catch (error) {
+      emit(EditTaskError("An unexpected error occurred. Please try again."));
     }
   }
 }

@@ -5,8 +5,10 @@ class ApiConstants {
   static const String getTasks = 'todos';
   static const String refreshTToken = 'auth/refresh-token';
   static const String deleteTask = 'todos';
+  static const String updateTask = 'todos';
 }
 
+/*   */
 class ApiErrors {
   static const String badRequestError = "رقم الهاتف مستخدم بالفعل";
   static const String noContent = "noContent";
