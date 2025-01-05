@@ -7,6 +7,8 @@ import 'package:tasky/features/home/cubit/home_cubit.dart';
 import 'package:tasky/features/home/data/repo/home_repo.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
 import 'package:tasky/features/login/data/repo/login_repo.dart';
+import 'package:tasky/features/profile/cubit/profile_cubit.dart';
+import 'package:tasky/features/profile/data/repo/profile_repo.dart';
 import 'package:tasky/features/signin/cubit/sign_in_cubit.dart';
 import 'package:tasky/features/signin/data/repo/signIn_repo.dart';
 
@@ -31,6 +33,9 @@ Future<void> setUpGetIt() async {
   getit.registerLazySingleton<HomeRepo>(() => HomeRepo(servicesApi: getit()));
   getit.registerFactory<HomeCubit>(() => HomeCubit(homeRepo: getit()));
 
-  //task details
-  // getit.registerLazySingleton<TaskDetailsRepo>(
+  //profile
+  getit.registerLazySingleton<ProfileRepo>(
+      () => ProfileRepo(servicesApi: getit()));
+  getit.registerFactory<ProfileCubit>(
+      () => ProfileCubit(getProfileRepo: getit()));
 }

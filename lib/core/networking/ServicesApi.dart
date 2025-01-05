@@ -6,6 +6,7 @@ import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 import 'package:tasky/features/home/data/models/refresh_token.dart';
 import 'package:tasky/features/login/data/models/login_request.dart';
 import 'package:tasky/features/login/data/models/login_response.dart';
+import 'package:tasky/features/profile/data/models/profile_response.dart';
 import 'package:tasky/features/signin/data/models/signIn_request.dart';
 import 'package:tasky/features/signin/data/models/signIn_response.dart';
 import 'package:tasky/features/task_details/data/model/deleteModel/delete_response.dart';
@@ -43,4 +44,8 @@ abstract class ServicesApi {
   @PUT("/todos/{id}")
   Future<EditResponseModel> editTask(
       @Path("id") String id, @Body() EditRequestModel task);
+
+  //get user profile
+  @GET(ApiConstants.profile)
+  Future<ProfileResponse> getUserProfile();
 }

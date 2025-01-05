@@ -6,6 +6,7 @@ class ApiConstants {
   static const String refreshTToken = 'auth/refresh-token';
   static const String deleteTask = 'todos';
   static const String updateTask = 'todos';
+  static const String profile = 'auth/profile';
 }
 
 /*   */

@@ -7,6 +7,7 @@ import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/routing/routing.dart';
 import 'package:tasky/features/home/cubit/home_cubit.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
+import 'package:tasky/features/profile/cubit/profile_cubit.dart';
 import 'package:tasky/features/signin/cubit/sign_in_cubit.dart';
 
 class Tasky extends StatelessWidget {
@@ -34,11 +35,16 @@ class Tasky extends StatelessWidget {
             create: (context) => SignInCubit(
                 signinRepo: getit()), // Your SignInCubit initialization
           ),
+
+          BlocProvider<ProfileCubit>(
+            create: (context) => ProfileCubit(
+                getProfileRepo: getit()), // Your SignInCubit initialization
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: appRouter.generateRoute,
-          initialRoute: Routes.profile,
+          initialRoute: Routes.login,
           title: 'tasky',
         ),
       ),

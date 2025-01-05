@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 
 class Homeheader extends StatelessWidget {
@@ -19,7 +20,7 @@ class Homeheader extends StatelessWidget {
         //add svg image
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pop();
+            Navigator.pushReplacementNamed(context, Routes.profile);
           },
           child: SvgPicture.asset(
             "assets/images/svg/profile.svg",
