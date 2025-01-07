@@ -79,8 +79,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         //years
                         IdentityWidget(
-                          subTitle: '${state.profile.experienceYears} Years' ??
-                              'years ',
+                          subTitle: '${state.profile.experienceYears} Years',
                           title: 'years',
                         ),
                         //Location

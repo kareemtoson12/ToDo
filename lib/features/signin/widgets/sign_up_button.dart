@@ -46,7 +46,7 @@ class SignUpButton extends StatelessWidget {
             ),
           );
           // Navigate to home app screen
-          Navigator.pushReplacementNamed(context, Routes.home);
+          Navigator.pushReplacementNamed(context, Routes.login);
         } else if (state is SignInFailure) {
           // Show error message
           ScaffoldMessenger.of(context).showSnackBar(
