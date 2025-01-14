@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/core/routing/app_routes.dart';
+import 'package:tasky/features/addTask/view.dart';
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 import 'package:tasky/features/home/view.dart';
 import 'package:tasky/features/login/view.dart';
@@ -18,6 +19,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => Profile());
       case Routes.splash:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
+      case Routes.addTaskScreen:
+        return MaterialPageRoute(builder: (context) => const AddTaskScreen());
 
       case Routes.onboarding:
         return MaterialPageRoute(builder: (context) => const Onboarding());

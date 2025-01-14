@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:tasky/core/helpers/constants.dart';
+import 'package:tasky/core/helpers/shared_pref_helpers.dart';
 import 'package:tasky/features/profile/data/models/profile_response.dart';
 import 'package:tasky/features/profile/data/repo/profile_repo.dart';
 
@@ -30,4 +32,24 @@ class ProfileCubit extends Cubit<ProfileState> {
           errorMessage: "An unexpected error occurred. Please try again."));
     }
   }
+
+//logout Logic
+  void logout() async {
+    removeUserToken();
+    removeUserRefreshToken();
+  }
+}
+
+//remove accesToken
+Future<void> removeUserToken() async {
+  await SharedPrefHelper.removeData(
+    SharedPrefKeys.accessToken,
+  );
+}
+
+//remove refreshToke
+Future<void> removeUserRefreshToken() async {
+  await SharedPrefHelper.removeData(
+    SharedPrefKeys.refreshToken,
+  );
 }

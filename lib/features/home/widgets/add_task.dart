@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
 
@@ -48,7 +49,7 @@ class AddTaskWidget extends StatelessWidget {
           height: 70.h,
           child: FloatingActionButton(
             onPressed: () {
-              print("FAB clicked");
+              Navigator.pushReplacementNamed(context, Routes.addTaskScreen);
             },
             shape: CircleBorder(),
             backgroundColor: ColorsManger.primaryColor,

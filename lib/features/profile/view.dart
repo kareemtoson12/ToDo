@@ -6,6 +6,7 @@ import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/profile/cubit/profile_cubit.dart';
 import 'package:tasky/features/profile/widgets/identity_widgets.dart';
+import 'package:tasky/features/profile/widgets/profile_header.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -33,23 +34,7 @@ class _ProfileState extends State<Profile> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // Header
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacementNamed(context, Routes.home);
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/svg/arrow_left.svg',
-                    ),
-                  ),
-                  SizedBox(width: 20.w),
-                  Text(
-                    'Profile',
-                    style: CustomstextStyels.font24black700Wight,
-                  ),
-                ],
-              ),
+              ProfileHeader(),
               SizedBox(height: 30.h),
 
               // Profile Content
@@ -87,6 +72,22 @@ class _ProfileState extends State<Profile> {
                           subTitle: state.profile.address ?? 'maser ',
                           title: 'LOCATION',
                         ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+//logout button
+                        ElevatedButton(
+                          onPressed: () {
+                            //trigger the Cubit's logout method
+                            context.read<ProfileCubit>().logout();
+                            Navigator.pushReplacementNamed(
+                                context, Routes.login);
+                          },
+                          child: Text(
+                            'Logout',
+                            style: CustomstextStyels.font14ForHihgtTasks,
+                          ),
+                        )
                       ],
                     );
                   } else if (state is ProfileError) {

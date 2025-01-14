@@ -32,10 +32,15 @@ class Homeheader extends StatelessWidget {
           width: 30.w,
         ),
 
-        SvgPicture.asset(
-          "assets/images/svg/exit.svg",
-          width: 30,
-          height: 30,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushReplacementNamed(context, Routes.login);
+          },
+          child: SvgPicture.asset(
+            "assets/images/svg/exit.svg",
+            width: 30,
+            height: 30,
+          ),
         ),
       ],
     );

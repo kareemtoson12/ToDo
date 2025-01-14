@@ -40,13 +40,13 @@ class SignUpButton extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'Welcome, ${state.response.displayName}!',
+                'Sign Up sucssefuly, ${state.response.displayName}!',
               ),
               backgroundColor: Colors.green,
             ),
           );
           // Navigate to home app screen
-          Navigator.pushReplacementNamed(context, Routes.login);
+          Navigator.pushReplacementNamed(context, Routes.home);
         } else if (state is SignInFailure) {
           // Show error message
           ScaffoldMessenger.of(context).showSnackBar(

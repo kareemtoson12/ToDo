@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:tasky/core/helpers/constants.dart';
+import 'package:tasky/core/helpers/shared_pref_helpers.dart';
 import 'package:tasky/core/networking/error_handling.dart';
 
 import 'package:tasky/features/signin/data/models/signIn_request.dart';
@@ -16,7 +18,11 @@ class SignInCubit extends Cubit<SignInState> {
     try {
       final result = await signinRepo.signIn(signinRequest);
       result.when(
-        success: (response) => emit(SignInSuccess(response)),
+        success: (response) async {
+          emit(SignInSuccess(response));
+          await saveUserToken(response.accessToken);
+          await saveRefreshToken(response.refreshToken);
+        },
         failure: (errorHandler) {
           String errorMessage =
               errorHandler.apiErrorModel.message ?? "Unknown Error";
@@ -31,5 +37,17 @@ class SignInCubit extends Cubit<SignInState> {
     } catch (error) {
       emit(SignInFailure("An unexpected error occurred. Please try again."));
     }
+  }
+
+  Future<void> saveUserToken(String tokenn) async {
+    await SharedPrefHelper.setData(SharedPrefKeys.accessToken, tokenn);
+    print('********************************');
+    print(tokenn);
+  }
+
+  Future<void> saveRefreshToken(String tokenn) async {
+    await SharedPrefHelper.setData(SharedPrefKeys.refreshToken, tokenn);
+    print('********************************');
+    print(tokenn);
   }
 }
