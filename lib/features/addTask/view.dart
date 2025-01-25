@@ -59,7 +59,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         dueDate: _selectedDate?.toIso8601String() ?? '',
         priority: priority,
         image:
-            'https://hips.hearstapps.com/hmg-prod/images/cristiano-ronaldo-of-portugal-reacts-as-he-looks-on-during-news-photo-1725633476.jpg?crop=0.666xw:1.00xh;0.180xw,0&resize=1200:*');
+            'https://www.figma.com/design/87DbfZRjJh3M5yYG7ntxe1/ToDoApp?node-id=0-78&t=Yl6gromOc49XZotl-0');
 
     context.read<CreateTaskCubit>().createTask(createTaskRequest);
   }
@@ -98,7 +98,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     listOfperiorts: _periortyOptions,
                     onPrioritySelected: (priority) {
                       setState(() {
-                        _selectedPriority = priority;
+                        _selectedPriority =
+                            priority; // Update the selected priority
                       });
                     },
                   ),

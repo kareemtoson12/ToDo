@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tasky/core/routing/app_routes.dart';
+
 import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/signin/cubit/sign_in_cubit.dart';
@@ -40,13 +40,12 @@ class SignUpButton extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'Sign Up sucssefuly, ${state.response.displayName}!',
+                'Sign Up sucssefuly, ${state.response.displayName}! Now go and login ',
               ),
               backgroundColor: Colors.green,
             ),
           );
           // Navigate to home app screen
-          Navigator.pushReplacementNamed(context, Routes.home);
         } else if (state is SignInFailure) {
           // Show error message
           ScaffoldMessenger.of(context).showSnackBar(

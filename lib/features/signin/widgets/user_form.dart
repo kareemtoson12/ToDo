@@ -176,7 +176,7 @@ class _UserFormState extends State<UserForm> {
                       child: SvgPicture.asset(
                         _obscureText
                             ? 'assets/images/svg/eye.svg'
-                            : 'assets/images/svg/eye_off.svg',
+                            : 'assets/images/svg/eye.svg',
                         color: Colors.grey,
                       ),
                     ),
