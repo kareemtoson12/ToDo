@@ -5,6 +5,7 @@ import 'package:tasky/core/di/dependicy_injection.dart';
 
 import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/routing/routing.dart';
+import 'package:tasky/features/addTask/cubit/create_task_cubit.dart';
 import 'package:tasky/features/home/cubit/home_cubit.dart';
 import 'package:tasky/features/login/cubit/login_cubit.dart';
 import 'package:tasky/features/profile/cubit/profile_cubit.dart';
@@ -40,11 +41,15 @@ class Tasky extends StatelessWidget {
             create: (context) => ProfileCubit(
                 getProfileRepo: getit()), // Your SignInCubit initialization
           ),
+          BlocProvider<CreateTaskCubit>(
+            create: (context) => CreateTaskCubit(
+                repoInstance: getit()), // Your SignInCubit initialization
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: appRouter.generateRoute,
-          initialRoute: Routes.addTaskScreen,
+          initialRoute: Routes.login,
           title: 'tasky',
         ),
       ),

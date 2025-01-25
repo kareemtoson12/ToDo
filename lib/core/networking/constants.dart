@@ -7,6 +7,7 @@ class ApiConstants {
   static const String deleteTask = 'todos';
   static const String updateTask = 'todos';
   static const String profile = 'auth/profile';
+  static const String createTask = 'todos';
 }
 
 /*   */

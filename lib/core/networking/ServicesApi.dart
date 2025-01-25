@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import 'package:tasky/core/networking/constants.dart';
+import 'package:tasky/features/addTask/data/models/create_task_request.dart';
+import 'package:tasky/features/addTask/data/models/create_task_respons.dart';
 import 'package:tasky/features/home/data/models/get_tasks.response.dart';
 import 'package:tasky/features/home/data/models/refresh_token.dart';
 import 'package:tasky/features/login/data/models/login_request.dart';
@@ -48,4 +50,7 @@ abstract class ServicesApi {
   //get user profile
   @GET(ApiConstants.profile)
   Future<ProfileResponse> getUserProfile();
+//create task
+  @POST(ApiConstants.createTask)
+  Future<CreateTaskRespons> createTask(@Body() CreateTaskRequest createTask);
 }

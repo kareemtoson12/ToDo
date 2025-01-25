@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/styles/text_styles.dart';
 import 'package:tasky/features/profile/cubit/profile_cubit.dart';

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tasky/core/styles/color_manger.dart';
 import 'package:tasky/core/styles/text_styles.dart';
+import 'package:tasky/features/addTask/cubit/create_task_cubit.dart';
+import 'package:tasky/features/addTask/data/models/create_task_request.dart';
 
 import 'package:tasky/features/addTask/widgets/add_images.dart';
 import 'package:tasky/features/addTask/widgets/add_task_button.dart';
 import 'package:tasky/features/addTask/widgets/add_task_header.dart';
 import 'package:tasky/features/addTask/widgets/date_widget.dart';
-import 'package:tasky/features/addTask/widgets/piriorty_widget.dart';
 import 'package:tasky/features/addTask/widgets/title_and_description.dart';
+import 'package:tasky/features/addTask/widgets/piriorty_widget.dart';
 import 'package:tasky/features/task_details/widgets/task_status_periorty.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -20,11 +22,11 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   DateTime? _selectedDate;
-  final List<String> _periortyOptions = [
-    'low',
-    'medium',
-    'high',
-  ];
+  final List<String> _periortyOptions = ['low', 'medium', 'high'];
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  String? _selectedPriority;
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -39,6 +41,29 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     }
   }
 
+  void _onAddTaskPressed(BuildContext context) {
+    final title = _titleController.text;
+    final description = _descriptionController.text;
+    final priority = _selectedPriority ?? 'low';
+
+    if (title.isEmpty || description.isEmpty || _selectedDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all fields')),
+      );
+      return;
+    }
+
+    final createTaskRequest = CreateTaskRequest(
+        title: title,
+        desc: description,
+        dueDate: _selectedDate?.toIso8601String() ?? '',
+        priority: priority,
+        image:
+            'https://hips.hearstapps.com/hmg-prod/images/cristiano-ronaldo-of-portugal-reacts-as-he-looks-on-during-news-photo-1725633476.jpg?crop=0.666xw:1.00xh;0.180xw,0&resize=1200:*');
+
+    context.read<CreateTaskCubit>().createTask(createTaskRequest);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,37 +75,36 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //header
+                // Header
                 AddTaskHeader(),
-                SizedBox(
-                  height: 20.h,
-                ),
-                //add image container
+                SizedBox(height: 20.h),
+                // Add image container
                 AddImages(),
-                SizedBox(
-                  height: 25.h,
+                SizedBox(height: 25.h),
+                // Add title and description
+                TitleAndDsecreptionWidget(
+                  titleController: _titleController,
+                  descriptionController: _descriptionController,
                 ),
-                //add title for task
-                TitleAndDsecreptionWidget(),
-                SizedBox(
-                  height: 25.h,
-                ),
-                // priority selection
-
+                SizedBox(height: 25.h),
+                // Priority selection
                 Text(
-                  'priority',
+                  'Priority',
                   style: CustomstextStyels.font15grayBoldWight,
                 ),
-                SizedBox(
-                  height: 5.h,
-                ),
+                SizedBox(height: 5.h),
                 statusDropDown(
-                    TaskPriorityWidget(listOfperiorts: _periortyOptions)),
-
-// Date Picker
-                SizedBox(
-                  height: 25.h,
+                  TaskPriorityWidget(
+                    listOfperiorts: _periortyOptions,
+                    onPrioritySelected: (priority) {
+                      setState(() {
+                        _selectedPriority = priority;
+                      });
+                    },
+                  ),
                 ),
+                // Date Picker
+                SizedBox(height: 25.h),
                 DatePickerWidget(
                   onDateSelected: (DateTime date) {
                     setState(() {
@@ -88,11 +112,29 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     });
                   },
                 ),
-                SizedBox(
-                  height: 25.h,
+                SizedBox(height: 25.h),
+                // Submit button
+                BlocConsumer<CreateTaskCubit, CreateTaskState>(
+                  listener: (context, state) {
+                    if (state is CreateTaskSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Task created successfully!')),
+                      );
+                      // Navigate to another screen or reset the form
+                    } else if (state is CreateTaskError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.message)),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return AddTaskButton(
+                      onPressed: () => _onAddTaskPressed(context),
+                      isLoading: state is CreateTaskLoading,
+                    );
+                  },
                 ),
-                //submit button
-                AddTaskButton()
               ],
             ),
           ),
