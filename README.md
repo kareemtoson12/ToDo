@@ -1,16 +1,76 @@
-# tasky
+Overview
 
-A new Flutter project.
+This To-Do Application is built using Flutter with Bloc/Cubit for state management and a REST API for the backend, following the MVVM architecture. It offers secure authentication, CRUD functionalities, QR code generation, and more.
 
-## Getting Started
+Features
 
-This project is a starting point for a Flutter application.
+State Management: Implemented using Bloc/Cubit.
 
-A few resources to get you started if this is your first Flutter project:
+Authentication: Secure phone number authentication with country-based validation.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Token Handling: Managed refresh tokens with HTTP status codes (401, 403, 200).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Pagination: Infinite scroll with loading, empty, and error states.
+
+QR Codes: Generated unique QR codes for each task based on its ID.
+
+Media Integration: Added task images from the gallery or camera.
+
+CRUD Operations: Comprehensive Create, Read, Update, and Delete functionalities.
+
+Responsive UI: Designed a seamless experience across different devices.
+
+Installation
+
+Clone the repository:
+
+git clone https://github.com/yourusername/todo-app.git
+
+Navigate to the project directory:
+
+cd todo-app
+
+Install dependencies:
+
+flutter pub get
+
+Run the app:
+
+flutter run
+
+Project Structure
+
+lib/
+├── main.dart
+└── src/
+    ├── models/
+    ├── views/
+    ├── controllers/
+    ├── services/
+    └── blocs/
+
+models: Data models for tasks.
+
+views: UI components and screens.
+
+controllers: Business logic and state management.
+
+services: API services and token handling.
+
+blocs: Bloc and Cubit classes for state management.
+
+Dependencies
+
+Flutter SDK
+
+Bloc/Cubit
+
+Dio (for HTTP requests)
+
+QR Flutter (for QR code generation)
+
+Camera Plugin (for capturing task images)
+
+Cached Network Image (for efficient image loading)
+
+Flutter Secure Storage (for storing tokens securely)
