@@ -27,3 +27,4 @@ flutter pub get
 
 # Run the app
 flutter run
+![1726429304353](https://github.com/user-attachments/assets/f4bf6a43-59ea-4cb0-8fba-05558ed24b46)
