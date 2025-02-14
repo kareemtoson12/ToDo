@@ -12,7 +12,7 @@ This To-Do Application is built using **Flutter**, **Bloc/Cubit** for state mana
 - 📊 **CRUD Operations:** Create, Read, Update, and Delete tasks
 - 📱 **Responsive UI:** Optimized for all devices
 - 🧾 **QR Codes:** Unique QR codes per task
-
+![Image](https://github.com/user-attachments/assets/7f525cce-3880-44f5-8564-adf022de8eb7)
 ## ⚙️ Installation
 ```bash![1726429304353](https://github.com/user-attachments/assets/59b58e3d-1371-4739-a72c-b498a3024fc9)
 
