@@ -14,7 +14,8 @@ This To-Do Application is built using **Flutter**, **Bloc/Cubit** for state mana
 - 🧾 **QR Codes:** Unique QR codes per task
 
 ## ⚙️ Installation
-```bash
+```bash![1726429304353](https://github.com/user-attachments/assets/59b58e3d-1371-4739-a72c-b498a3024fc9)
+
 # Clone the repository
 git clone https://github.com/yourusername/todo-app.git
 
